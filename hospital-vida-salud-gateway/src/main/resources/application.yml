@@ -1,0 +1,56 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: hospital-vida-salud-gateway
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: pacientes-service
+              uri: lb://hospital-vida-salud-pacientes
+              predicates:
+                - Path=/api/pacientes/**
+              filters:
+                - StripPrefix=1
+
+            - id: citas-service
+              uri: lb://hospital-vida-salud-citas
+              predicates:
+                - Path=/api/citas/**
+              filters:
+                - StripPrefix=1
+
+            - id: notificaciones-service
+              uri: lb://hospital-vida-salud-notificaciones
+              predicates:
+                - Path=/api/notificaciones/**
+              filters:
+                - StripPrefix=1
+
+            - id: auditoria-service
+              uri: lb://hospital-vida-salud-auditoria
+              predicates:
+                - Path=/api/auditoria/**
+              filters:
+                - StripPrefix=1
+
+            - id: atenciones-service
+              uri: lb://hospital-vida-salud-atenciones
+              predicates:
+                - Path=/api/atenciones/**
+              filters:
+                - StripPrefix=1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+  instance:
+    prefer-ip-address: true
