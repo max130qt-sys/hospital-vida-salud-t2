@@ -1,53 +1,17 @@
-name: CI - Hospital Vida Salud
+<WritingBlock id="58263" variant="document">name: CI - Hospital Vida Salud
 
-on:
-push:
-pull_request:
-branches:
-- master
+on: push: pull_request: branches: - master
 
-jobs:
-build-test:
-name: Verificar ${{ matrix.service }}
-runs-on: ubuntu-latest
+jobs: build-test: name: Verificar ${{ matrix.service }} runs-on: ubuntu-latest
 
-```
-strategy:
-  fail-fast: false
-  matrix:
-    include:
-      - service: hospital-vida-salud-eureka
-        run-tests: false
-      - service: hospital-vida-salud-gateway
-        run-tests: false
-      - service: hospital-vida-salud-pacientes
-        run-tests: true
-      - service: hospital-vida-salud-citas
-        run-tests: true
-      - service: hospital-vida-salud-notificaciones
-        run-tests: false
-      - service: hospital-vida-salud-auditoria
-        run-tests: false
-      - service: hospital-vida-salud-atenciones
-        run-tests: true
+strategy: fail-fast: false matrix: include: - service: hospital-vida-salud-eureka run-tests: false - service: hospital-vida-salud-gateway run-tests: false - service: hospital-vida-salud-pacientes run-tests: true - service: hospital-vida-salud-citas run-tests: true - service: hospital-vida-salud-notificaciones run-tests: false - service: hospital-vida-salud-auditoria run-tests: false - service: hospital-vida-salud-atenciones run-tests: true
 
 steps:
-  - name: Descargar codigo
-    uses: actions/checkout@v4
 
-  - name: Configurar Java 25
-    uses: actions/setup-java@v4
-    with:
-      distribution: temurin
-      java-version: '25'
+- name: Descargar codigo uses: actions/checkout@v4
 
-  - name: Compilar microservicio
-    if: matrix.run-tests == false
-    working-directory: ${{ matrix.service }}
-    run: mvn --batch-mode -DskipTests package
+- name: Configurar Java 25 uses: actions/setup-java@v4 with: distribution: temurin java-version: '25'
 
-  - name: Compilar y ejecutar pruebas automatizadas
-    if: matrix.run-tests == true
-    working-directory: ${{ matrix.service }}
-    run: mvn --batch-mode verify
+- name: Compilar microservicio if: matrix.run-tests == false working-directory: ${{ matrix.service }} run: mvn --batch-mode -DskipTests package
 
+- name: Compilar y ejecutar pruebas automatizadas if: matrix.run-tests == true working-directory: ${{ matrix.service }} run: mvn --batch-mode verify</WritingBlock>
