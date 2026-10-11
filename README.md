@@ -149,6 +149,11 @@ mvn verify
 
 Los microservicios deben iniciarse según sus dependencias y la configuración del proyecto. Antes de probar las operaciones, se debe verificar que los servicios necesarios estén activos y que la conexión con la base de datos funcione correctamente.
 
+## Base de datos
+
+El proyecto utiliza MySQL para almacenar la información de los procesos implementados. El script de creación de la base de datos y sus tablas se encuentra en `database/hospital_vida_salud.sql`.
+
+Para preparar la base de datos, se debe ejecutar el script en MySQL y configurar las conexiones que utilizan los microservicios.
 ## Repositorio
 
 El código fuente del proyecto se encuentra disponible en GitHub:
